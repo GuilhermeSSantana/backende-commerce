@@ -10,11 +10,35 @@ datasource db {
 }
 
 
-model User {
+model clientes {
   id        String   @id @default(uuid())
-  name      String
+  nome      String
   email     String   @unique
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+
+model Produtos {
+  id          String   @id @default(uuid())
+  nome        String
+  descricao   String?
+  preco       Float
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Pedidos {
+  id          String   @id @default(uuid())
+  clienteId   String
+  produtoId   String
+  quantidade  Int
+  total       Float
+  status      String   @default("PENDING")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([clienteId])
+  @@index([produtoId])
 }
